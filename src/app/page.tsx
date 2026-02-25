@@ -16,6 +16,8 @@ import {
   Activity,
   Clock,
   Brain,
+  Search,
+  RefreshCw,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -93,26 +95,29 @@ function HeroSection() {
           variants={fadeUp}
           className="mb-6 text-5xl font-bold leading-tight tracking-tight md:text-7xl"
         >
-          Stop fighting
+          Your agents.
           <br />
-          <span className="text-accent">the terminal.</span>
+          <span className="text-accent">All in one view.</span>
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
           className="mx-auto mb-10 max-w-2xl text-lg text-muted md:text-xl"
         >
-          Cockpit gives you a beautiful visual dashboard for your OpenClaw
-          agents. Setup wizard, live monitoring, one-click debugging — no
-          terminal required.
+          Cockpit gives you a beautiful visual dashboard for OpenClaw — so you
+          can set up, monitor, and debug your agents without ever touching the
+          terminal. One payment. Yours forever.
         </motion.p>
 
-        <motion.div variants={fadeUp} className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <motion.div
+          variants={fadeUp}
+          className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+        >
           <a
             href="#pricing"
             className="group flex items-center gap-2 rounded-xl bg-accent px-8 py-3.5 text-base font-semibold text-white transition-all hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/25"
           >
-            Get Cockpit — $79
+            Get Cockpit — $79 One-Time
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </a>
           <a
@@ -122,6 +127,11 @@ function HeroSection() {
             See features
           </a>
         </motion.div>
+
+        {/* Sub-text */}
+        <motion.p variants={fadeUp} className="mt-4 text-xs text-muted">
+          No subscription. Instant access. Works with OpenClaw out of the box.
+        </motion.p>
 
         {/* Mock Dashboard Preview */}
         <motion.div
@@ -136,9 +146,27 @@ function HeroSection() {
           </div>
           <div className="grid grid-cols-1 gap-3 p-4 md:grid-cols-3">
             {[
-              { name: "Support Bot", status: "online", model: "Claude Sonnet", sessions: 142, color: "bg-success" },
-              { name: "Code Reviewer", status: "online", model: "Claude Sonnet", sessions: 234, color: "bg-success" },
-              { name: "Sales Assistant", status: "idle", model: "GPT-4o", sessions: 87, color: "bg-warning" },
+              {
+                name: "Support Bot",
+                status: "online",
+                model: "Claude Sonnet",
+                sessions: 142,
+                color: "bg-success",
+              },
+              {
+                name: "Code Reviewer",
+                status: "online",
+                model: "Claude Sonnet",
+                sessions: 234,
+                color: "bg-success",
+              },
+              {
+                name: "Sales Assistant",
+                status: "idle",
+                model: "GPT-4o",
+                sessions: 87,
+                color: "bg-warning",
+              },
             ].map((agent) => (
               <div
                 key={agent.name}
@@ -170,7 +198,91 @@ function HeroSection() {
   );
 }
 
-function FeaturesSection() {
+function CoreFeaturesSection() {
+  const coreFeatures = [
+    {
+      icon: Wand2,
+      label: "Setup Wizard",
+      heading: "Connected in 2 minutes. Not 2 hours.",
+      body: "Stop googling config docs. Cockpit's step-by-step setup wizard walks you through connecting OpenClaw — gateway, agents, everything — in one clean flow. No YAML. No headaches. Just done.",
+      accent: "from-blue-500/10 to-blue-500/5",
+      border: "border-blue-500/20 hover:border-blue-500/40",
+      iconBg: "bg-blue-500/10 text-blue-400",
+    },
+    {
+      icon: Activity,
+      label: "Agent Dashboard",
+      heading: "See everything. At a glance.",
+      body: "All your OpenClaw agents, live in one place. Status, activity, last run, current task — laid out visually so you always know what's running, what's idle, and what needs attention. No more guessing.",
+      accent: "from-purple-500/10 to-purple-500/5",
+      border: "border-purple-500/20 hover:border-purple-500/40",
+      iconBg: "bg-purple-500/10 text-purple-400",
+    },
+    {
+      icon: Bug,
+      label: "Live Debug",
+      heading: "Know exactly what broke. Without the terminal.",
+      body: "When something goes wrong, you'll know — and you'll know why. Cockpit surfaces live logs, errors, and agent events in a readable interface so you can debug fast and ship faster.",
+      accent: "from-emerald-500/10 to-emerald-500/5",
+      border: "border-emerald-500/20 hover:border-emerald-500/40",
+      iconBg: "bg-emerald-500/10 text-emerald-400",
+    },
+  ];
+
+  return (
+    <section id="features" className="relative px-6 py-24">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+          className="mb-16 text-center"
+        >
+          <motion.p variants={fadeUp} className="mb-3 text-sm font-medium text-accent">
+            Core Features
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="mb-4 text-4xl font-bold">
+            Three things it does better than a terminal
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mx-auto max-w-xl text-muted">
+            Every feature in Cockpit is built around one idea: your time is too
+            valuable to spend in a command line.
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+          className="grid gap-6 md:grid-cols-3"
+        >
+          {coreFeatures.map((f) => (
+            <motion.div
+              key={f.label}
+              variants={fadeUp}
+              className={`group rounded-2xl border bg-gradient-to-b ${f.accent} ${f.border} p-8 transition-all`}
+            >
+              <div
+                className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl ${f.iconBg} transition-colors`}
+              >
+                <f.icon className="h-6 w-6" />
+              </div>
+              <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-muted">
+                {f.label}
+              </p>
+              <h3 className="mb-3 text-xl font-bold leading-tight">{f.heading}</h3>
+              <p className="text-sm leading-relaxed text-muted">{f.body}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function AllFeaturesSection() {
   const features = [
     {
       icon: Wand2,
@@ -211,7 +323,7 @@ function FeaturesSection() {
   ];
 
   return (
-    <section id="features" className="relative px-6 py-32">
+    <section className="relative px-6 pb-32">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
@@ -221,14 +333,14 @@ function FeaturesSection() {
           className="mb-16 text-center"
         >
           <motion.p variants={fadeUp} className="mb-3 text-sm font-medium text-accent">
-            Features
+            Everything included
           </motion.p>
           <motion.h2 variants={fadeUp} className="mb-4 text-4xl font-bold">
-            Everything you need, nothing you don&apos;t
+            Nothing you don&apos;t need. Everything you do.
           </motion.h2>
           <motion.p variants={fadeUp} className="mx-auto max-w-2xl text-muted">
-            Cockpit replaces terminal-driven agent management with a clean, visual interface.
-            Built for OpenClaw users who value their time.
+            Cockpit replaces terminal-driven agent management with a clean,
+            visual interface. Built for OpenClaw users who value their time.
           </motion.p>
         </motion.div>
 
@@ -249,9 +361,106 @@ function FeaturesSection() {
                 <feature.icon className="h-5 w-5" />
               </div>
               <h3 className="mb-2 text-lg font-semibold">{feature.title}</h3>
-              <p className="text-sm leading-relaxed text-muted">{feature.description}</p>
+              <p className="text-sm leading-relaxed text-muted">
+                {feature.description}
+              </p>
             </motion.div>
           ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function SocialProofSection() {
+  const testimonials = [
+    {
+      name: "Daniel R.",
+      role: "Indie Developer, Toronto",
+      text: "I was spending 20 minutes every morning just checking terminal logs. Cockpit cut that to seconds. I don't know how I used OpenClaw without it.",
+      stars: 5,
+    },
+    {
+      name: "Priya M.",
+      role: "AI Automation Builder",
+      text: "The setup wizard alone is worth $79. I had everything running in under 3 minutes. Genuinely impressed.",
+      stars: 5,
+    },
+    {
+      name: "Marcus T.",
+      role: "SaaS Founder",
+      text: "Finally — a dashboard that doesn't look like it was designed by someone who hates humans. Cockpit is clean, fast, and actually useful.",
+      stars: 5,
+    },
+  ];
+
+  const trustItems = [
+    "Works with any OpenClaw setup",
+    "No subscription. Ever.",
+    "Instant access after purchase",
+    "Built by people who use it daily",
+  ];
+
+  return (
+    <section className="px-6 py-32">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+        >
+          <motion.div variants={fadeUp} className="mb-16 text-center">
+            <p className="mb-3 text-sm font-medium text-accent">Testimonials</p>
+            <h2 className="mb-4 text-4xl font-bold">Loved by OpenClaw users</h2>
+            <p className="mx-auto max-w-xl text-muted">
+              Real feedback from the OpenClaw community.
+            </p>
+          </motion.div>
+
+          <motion.div variants={stagger} className="mb-16 grid gap-6 md:grid-cols-3">
+            {testimonials.map((t) => (
+              <motion.div
+                key={t.name}
+                variants={fadeUp}
+                className="rounded-xl border border-border bg-card p-6"
+              >
+                <div className="mb-3 flex gap-0.5">
+                  {Array.from({ length: t.stars }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-warning text-warning" />
+                  ))}
+                </div>
+                <p className="mb-4 text-sm leading-relaxed text-muted">
+                  &ldquo;{t.text}&rdquo;
+                </p>
+                <div>
+                  <div className="text-sm font-medium">{t.name}</div>
+                  <div className="text-xs text-muted">{t.role}</div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Trust bar */}
+          <motion.div
+            variants={fadeUp}
+            className="rounded-2xl border border-border bg-card p-8"
+          >
+            <p className="mb-6 text-center text-sm font-semibold uppercase tracking-widest text-muted">
+              Built for OpenClaw power users
+            </p>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {trustItems.map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-2 text-sm text-muted"
+                >
+                  <Check className="h-4 w-4 shrink-0 text-success" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
@@ -292,8 +501,8 @@ function PricingSection() {
             One price. Forever yours.
           </motion.h2>
           <motion.p variants={fadeUp} className="mx-auto mb-12 max-w-xl text-muted">
-            No subscriptions, no tiers, no BS. Pay once, use forever.
-            Includes all future updates.
+            No subscriptions, no tiers, no BS. Pay once, use forever. Includes
+            all future updates.
           </motion.p>
 
           <motion.div
@@ -343,75 +552,23 @@ function PricingSection() {
   );
 }
 
-function TestimonialsSection() {
-  const testimonials = [
-    {
-      name: "Sarah K.",
-      role: "Startup Founder",
-      text: "I was spending 30 minutes every morning SSH-ing into my server to check agent status. Cockpit replaced that with a single browser tab. Worth every penny.",
-      stars: 5,
-    },
-    {
-      name: "Marcus R.",
-      role: "DevOps Engineer",
-      text: "The debug screen alone saves me hours. Instead of running 5 CLI commands to diagnose why an agent went silent, I just open Cockpit and see everything.",
-      stars: 5,
-    },
-    {
-      name: "Jenny L.",
-      role: "Non-Technical Founder",
-      text: "I have zero terminal skills. Cockpit let me set up 3 OpenClaw agents without touching a single config file. The setup wizard is magic.",
-      stars: 5,
-    },
-  ];
-
-  return (
-    <section className="px-6 py-32">
-      <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={stagger}
-        >
-          <motion.div variants={fadeUp} className="mb-16 text-center">
-            <p className="mb-3 text-sm font-medium text-accent">Testimonials</p>
-            <h2 className="mb-4 text-4xl font-bold">Loved by OpenClaw users</h2>
-          </motion.div>
-
-          <motion.div variants={stagger} className="grid gap-6 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <motion.div
-                key={t.name}
-                variants={fadeUp}
-                className="rounded-xl border border-border bg-card p-6"
-              >
-                <div className="mb-3 flex gap-0.5">
-                  {Array.from({ length: t.stars }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-warning text-warning" />
-                  ))}
-                </div>
-                <p className="mb-4 text-sm leading-relaxed text-muted">
-                  &ldquo;{t.text}&rdquo;
-                </p>
-                <div>
-                  <div className="text-sm font-medium">{t.name}</div>
-                  <div className="text-xs text-muted">{t.role}</div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
 function FAQSection() {
   const faqs = [
     {
-      q: "Does Cockpit require a subscription?",
-      a: "No. It's a one-time $79 payment. You get the full app, all features, and all future updates. No recurring charges.",
+      q: "What is Cockpit?",
+      a: "Cockpit is a visual dashboard for OpenClaw — the AI agent platform. Instead of managing everything through the terminal, you get a clean interface to set up, monitor, and debug your agents in real time.",
+    },
+    {
+      q: "Do I need technical skills to use it?",
+      a: "Not really. If you're already using OpenClaw, you're technical enough. Cockpit is built to make your life easier, not to add complexity. The setup wizard handles the tricky parts.",
+    },
+    {
+      q: "What's included for $79?",
+      a: "Everything. The full Cockpit dashboard — setup wizard, agent monitor, live debug panel, and all future updates to the current version. One payment, full access, no drip features.",
+    },
+    {
+      q: "Is it a subscription?",
+      a: "$79 once. That's it. No monthly fees, no annual renewal, no surprise charges. We think software that lives on your machine shouldn't rent itself to you every month.",
     },
     {
       q: "Does my data leave my machine?",
@@ -422,16 +579,8 @@ function FAQSection() {
       a: "Yes, Cockpit is a visual layer on top of OpenClaw. You need a running OpenClaw gateway (the default localhost:18800 setup works out of the box).",
     },
     {
-      q: "What if I need help setting up?",
-      a: "Cockpit includes a step-by-step setup wizard that detects your OpenClaw installation and walks you through configuration. No terminal knowledge needed.",
-    },
-    {
-      q: "Can I use it with multiple agents?",
-      a: "Absolutely. Cockpit shows all your agents in a single dashboard — status, sessions, costs, memory, and more. Multi-agent setups are a first-class feature.",
-    },
-    {
-      q: "What about refunds?",
-      a: "If Cockpit doesn't work for your setup, email us within 14 days for a full refund. No questions asked.",
+      q: "What if it doesn't work for me?",
+      a: "If Cockpit doesn't do what it says on the tin, reach out within 14 days and we'll sort it out — refund or fix, your call. We'd rather earn your trust than keep your money.",
     },
   ];
 
@@ -487,6 +636,50 @@ function FAQSection() {
   );
 }
 
+function CTASection() {
+  return (
+    <section className="relative px-6 py-24">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.04] to-transparent" />
+      <div className="mx-auto max-w-3xl text-center">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+        >
+          <motion.h2
+            variants={fadeUp}
+            className="mb-5 text-4xl font-bold leading-tight md:text-5xl"
+          >
+            Your agents are already running.
+            <br />
+            <span className="text-accent">It&apos;s time you could actually see them.</span>
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mb-8 text-lg text-muted">
+            Join OpenClaw users who swapped the terminal for a clean, visual
+            dashboard they can actually read.
+          </motion.p>
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+          >
+            <a
+              href="#pricing"
+              className="group flex items-center gap-2 rounded-xl bg-accent px-8 py-3.5 text-base font-semibold text-white transition-all hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/25"
+            >
+              Get Cockpit — $79 One-Time
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
+          </motion.div>
+          <motion.p variants={fadeUp} className="mt-4 text-xs text-muted">
+            No subscription. Instant access. Works with OpenClaw out of the box.
+          </motion.p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 function Footer() {
   return (
     <footer className="border-t border-border px-6 py-12">
@@ -519,10 +712,12 @@ export default function LandingPage() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
-      <FeaturesSection />
+      <CoreFeaturesSection />
+      <AllFeaturesSection />
+      <SocialProofSection />
       <PricingSection />
-      <TestimonialsSection />
       <FAQSection />
+      <CTASection />
       <Footer />
     </div>
   );
