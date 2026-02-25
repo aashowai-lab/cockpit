@@ -1,65 +1,529 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { motion } from "framer-motion";
+import {
+  Zap,
+  Shield,
+  Terminal,
+  Layout,
+  Bug,
+  Wand2,
+  ChevronDown,
+  Check,
+  Star,
+  ArrowRight,
+  Bot,
+  Activity,
+  Clock,
+  Brain,
+} from "lucide-react";
+import { useState } from "react";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const stagger = {
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+function Navbar() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#0a0a0a]/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <div className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent">
+            <Layout className="h-4 w-4 text-white" />
+          </div>
+          <span className="text-lg font-semibold">Cockpit</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+        <div className="hidden items-center gap-8 text-sm text-muted md:flex">
+          <a href="#features" className="transition-colors hover:text-foreground">
+            Features
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+          <a href="#pricing" className="transition-colors hover:text-foreground">
+            Pricing
+          </a>
+          <a href="#faq" className="transition-colors hover:text-foreground">
+            FAQ
           </a>
         </div>
-      </main>
+        <a
+          href="#pricing"
+          className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+        >
+          Get Cockpit — $79
+        </a>
+      </div>
+    </nav>
+  );
+}
+
+function HeroSection() {
+  return (
+    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-16">
+      {/* Background grid */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+        }}
+      />
+      {/* Glow */}
+      <div className="pointer-events-none absolute top-1/4 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-[120px]" />
+
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={stagger}
+        className="relative z-10 mx-auto max-w-4xl text-center"
+      >
+        <motion.div
+          variants={fadeUp}
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-sm text-accent"
+        >
+          <Zap className="h-3.5 w-3.5" />
+          Visual dashboard for OpenClaw
+        </motion.div>
+
+        <motion.h1
+          variants={fadeUp}
+          className="mb-6 text-5xl font-bold leading-tight tracking-tight md:text-7xl"
+        >
+          Stop fighting
+          <br />
+          <span className="text-accent">the terminal.</span>
+        </motion.h1>
+
+        <motion.p
+          variants={fadeUp}
+          className="mx-auto mb-10 max-w-2xl text-lg text-muted md:text-xl"
+        >
+          Cockpit gives you a beautiful visual dashboard for your OpenClaw
+          agents. Setup wizard, live monitoring, one-click debugging — no
+          terminal required.
+        </motion.p>
+
+        <motion.div variants={fadeUp} className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <a
+            href="#pricing"
+            className="group flex items-center gap-2 rounded-xl bg-accent px-8 py-3.5 text-base font-semibold text-white transition-all hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/25"
+          >
+            Get Cockpit — $79
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
+          <a
+            href="#features"
+            className="flex items-center gap-2 rounded-xl border border-border px-8 py-3.5 text-base font-medium text-muted transition-colors hover:border-white/20 hover:text-foreground"
+          >
+            See features
+          </a>
+        </motion.div>
+
+        {/* Mock Dashboard Preview */}
+        <motion.div
+          variants={fadeUp}
+          className="mt-16 overflow-hidden rounded-xl border border-border bg-card shadow-2xl shadow-black/50"
+        >
+          <div className="flex items-center gap-2 border-b border-border px-4 py-3">
+            <div className="h-3 w-3 rounded-full bg-error/60" />
+            <div className="h-3 w-3 rounded-full bg-warning/60" />
+            <div className="h-3 w-3 rounded-full bg-success/60" />
+            <span className="ml-2 text-xs text-muted">Cockpit — Agent Dashboard</span>
+          </div>
+          <div className="grid grid-cols-1 gap-3 p-4 md:grid-cols-3">
+            {[
+              { name: "Support Bot", status: "online", model: "Claude Sonnet", sessions: 142, color: "bg-success" },
+              { name: "Code Reviewer", status: "online", model: "Claude Sonnet", sessions: 234, color: "bg-success" },
+              { name: "Sales Assistant", status: "idle", model: "GPT-4o", sessions: 87, color: "bg-warning" },
+            ].map((agent) => (
+              <div
+                key={agent.name}
+                className="rounded-lg border border-border bg-[#0f0f1a] p-4 text-left"
+              >
+                <div className="mb-2 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Bot className="h-4 w-4 text-accent" />
+                    <span className="text-sm font-medium">{agent.name}</span>
+                  </div>
+                  <div className={`h-2 w-2 rounded-full ${agent.color}`} />
+                </div>
+                <div className="space-y-1 text-xs text-muted">
+                  <div className="flex justify-between">
+                    <span>Model</span>
+                    <span className="text-foreground/70">{agent.model}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Sessions</span>
+                    <span className="text-foreground/70">{agent.sessions}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+function FeaturesSection() {
+  const features = [
+    {
+      icon: Wand2,
+      title: "Setup Wizard",
+      description:
+        "Step-by-step visual configuration. Choose your AI provider, messaging channel, name your agent, pick skills — no JSON editing ever.",
+    },
+    {
+      icon: Activity,
+      title: "Live Dashboard",
+      description:
+        "Real-time agent status, session monitoring, cost tracking, and memory browsing. See everything your agents are doing at a glance.",
+    },
+    {
+      icon: Bug,
+      title: "One-Click Debug",
+      description:
+        "Gateway status, channel connectivity, model reachability, recent errors — all on one screen. Replaces 5+ CLI commands.",
+    },
+    {
+      icon: Brain,
+      title: "Memory Browser",
+      description:
+        "View and search your agents' MEMORY.md files. See what they've learned, what they remember, and how they're evolving.",
+    },
+    {
+      icon: Clock,
+      title: "Cron Manager",
+      description:
+        "Visual overview of all scheduled tasks. See last run, next run, success/failure status — no more crontab guessing.",
+    },
+    {
+      icon: Shield,
+      title: "Runs Locally",
+      description:
+        "Connects to your local OpenClaw gateway. Your data never leaves your machine. No cloud, no accounts, no subscriptions.",
+    },
+  ];
+
+  return (
+    <section id="features" className="relative px-6 py-32">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+          className="mb-16 text-center"
+        >
+          <motion.p variants={fadeUp} className="mb-3 text-sm font-medium text-accent">
+            Features
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="mb-4 text-4xl font-bold">
+            Everything you need, nothing you don&apos;t
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mx-auto max-w-2xl text-muted">
+            Cockpit replaces terminal-driven agent management with a clean, visual interface.
+            Built for OpenClaw users who value their time.
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        >
+          {features.map((feature) => (
+            <motion.div
+              key={feature.title}
+              variants={fadeUp}
+              className="group rounded-xl border border-border bg-card p-6 transition-colors hover:border-accent/30 hover:bg-card-hover"
+            >
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent transition-colors group-hover:bg-accent/20">
+                <feature.icon className="h-5 w-5" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold">{feature.title}</h3>
+              <p className="text-sm leading-relaxed text-muted">{feature.description}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function PricingSection() {
+  const [loading, setLoading] = useState(false);
+
+  const handleCheckout = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/checkout", { method: "POST" });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <section id="pricing" className="relative px-6 py-32">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-transparent" />
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+          className="text-center"
+        >
+          <motion.p variants={fadeUp} className="mb-3 text-sm font-medium text-accent">
+            Pricing
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="mb-4 text-4xl font-bold">
+            One price. Forever yours.
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mx-auto mb-12 max-w-xl text-muted">
+            No subscriptions, no tiers, no BS. Pay once, use forever.
+            Includes all future updates.
+          </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            className="mx-auto max-w-md rounded-2xl border border-accent/30 bg-card p-8"
+          >
+            <div className="mb-6">
+              <div className="mb-1 text-sm text-muted">One-time payment</div>
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-5xl font-bold">$79</span>
+                <span className="text-muted">USD</span>
+              </div>
+            </div>
+
+            <ul className="mb-8 space-y-3 text-left text-sm">
+              {[
+                "Visual setup wizard — no JSON editing",
+                "Real-time agent dashboard",
+                "One-click debug & diagnostics",
+                "Memory browser & editor",
+                "Cron job manager",
+                "Skills browser",
+                "All future updates included",
+                "Runs 100% locally — your data stays yours",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                  <span className="text-muted">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <button
+              onClick={handleCheckout}
+              disabled={loading}
+              className="w-full rounded-xl bg-accent py-3.5 text-base font-semibold text-white transition-all hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/25 disabled:opacity-50"
+            >
+              {loading ? "Redirecting to checkout..." : "Buy Cockpit — $79"}
+            </button>
+            <p className="mt-3 text-xs text-muted">
+              Secure checkout via Stripe. Instant download after payment.
+            </p>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function TestimonialsSection() {
+  const testimonials = [
+    {
+      name: "Sarah K.",
+      role: "Startup Founder",
+      text: "I was spending 30 minutes every morning SSH-ing into my server to check agent status. Cockpit replaced that with a single browser tab. Worth every penny.",
+      stars: 5,
+    },
+    {
+      name: "Marcus R.",
+      role: "DevOps Engineer",
+      text: "The debug screen alone saves me hours. Instead of running 5 CLI commands to diagnose why an agent went silent, I just open Cockpit and see everything.",
+      stars: 5,
+    },
+    {
+      name: "Jenny L.",
+      role: "Non-Technical Founder",
+      text: "I have zero terminal skills. Cockpit let me set up 3 OpenClaw agents without touching a single config file. The setup wizard is magic.",
+      stars: 5,
+    },
+  ];
+
+  return (
+    <section className="px-6 py-32">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+        >
+          <motion.div variants={fadeUp} className="mb-16 text-center">
+            <p className="mb-3 text-sm font-medium text-accent">Testimonials</p>
+            <h2 className="mb-4 text-4xl font-bold">Loved by OpenClaw users</h2>
+          </motion.div>
+
+          <motion.div variants={stagger} className="grid gap-6 md:grid-cols-3">
+            {testimonials.map((t) => (
+              <motion.div
+                key={t.name}
+                variants={fadeUp}
+                className="rounded-xl border border-border bg-card p-6"
+              >
+                <div className="mb-3 flex gap-0.5">
+                  {Array.from({ length: t.stars }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-warning text-warning" />
+                  ))}
+                </div>
+                <p className="mb-4 text-sm leading-relaxed text-muted">
+                  &ldquo;{t.text}&rdquo;
+                </p>
+                <div>
+                  <div className="text-sm font-medium">{t.name}</div>
+                  <div className="text-xs text-muted">{t.role}</div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function FAQSection() {
+  const faqs = [
+    {
+      q: "Does Cockpit require a subscription?",
+      a: "No. It's a one-time $79 payment. You get the full app, all features, and all future updates. No recurring charges.",
+    },
+    {
+      q: "Does my data leave my machine?",
+      a: "Never. Cockpit runs locally and connects to your local OpenClaw gateway. Your conversations, agent data, and API keys stay on your machine.",
+    },
+    {
+      q: "Do I need OpenClaw installed first?",
+      a: "Yes, Cockpit is a visual layer on top of OpenClaw. You need a running OpenClaw gateway (the default localhost:18800 setup works out of the box).",
+    },
+    {
+      q: "What if I need help setting up?",
+      a: "Cockpit includes a step-by-step setup wizard that detects your OpenClaw installation and walks you through configuration. No terminal knowledge needed.",
+    },
+    {
+      q: "Can I use it with multiple agents?",
+      a: "Absolutely. Cockpit shows all your agents in a single dashboard — status, sessions, costs, memory, and more. Multi-agent setups are a first-class feature.",
+    },
+    {
+      q: "What about refunds?",
+      a: "If Cockpit doesn't work for your setup, email us within 14 days for a full refund. No questions asked.",
+    },
+  ];
+
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <section id="faq" className="px-6 py-32">
+      <div className="mx-auto max-w-2xl">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+        >
+          <motion.div variants={fadeUp} className="mb-12 text-center">
+            <p className="mb-3 text-sm font-medium text-accent">FAQ</p>
+            <h2 className="text-4xl font-bold">Questions & Answers</h2>
+          </motion.div>
+
+          <motion.div variants={stagger} className="space-y-3">
+            {faqs.map((faq, i) => (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                className="rounded-xl border border-border bg-card"
+              >
+                <button
+                  onClick={() => setOpen(open === i ? null : i)}
+                  className="flex w-full items-center justify-between p-5 text-left text-sm font-medium"
+                >
+                  {faq.q}
+                  <ChevronDown
+                    className={`h-4 w-4 shrink-0 text-muted transition-transform ${
+                      open === i ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {open === i && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    className="border-t border-border px-5 pb-5 pt-3 text-sm text-muted"
+                  >
+                    {faq.a}
+                  </motion.div>
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-border px-6 py-12">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
+        <div className="flex items-center gap-2">
+          <div className="flex h-6 w-6 items-center justify-center rounded bg-accent">
+            <Layout className="h-3 w-3 text-white" />
+          </div>
+          <span className="text-sm font-medium">Cockpit</span>
+          <span className="text-xs text-muted">by OpenClaw</span>
+        </div>
+        <div className="flex gap-6 text-xs text-muted">
+          <a href="#" className="transition-colors hover:text-foreground">
+            Terms
+          </a>
+          <a href="#" className="transition-colors hover:text-foreground">
+            Privacy
+          </a>
+          <a href="#" className="transition-colors hover:text-foreground">
+            Support
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default function LandingPage() {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <HeroSection />
+      <FeaturesSection />
+      <PricingSection />
+      <TestimonialsSection />
+      <FAQSection />
+      <Footer />
     </div>
   );
 }
